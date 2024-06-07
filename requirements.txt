@@ -6,3 +6,8 @@ seaborn
 scikit-learn
 plotly
 wordcloud
+regex
+underthese
+PIL
+nltk
+re
