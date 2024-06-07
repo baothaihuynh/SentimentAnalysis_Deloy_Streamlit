@@ -188,12 +188,10 @@ price_word_posi = [
 data_analysis = pd.read_csv("data_cleaned/data_analysis.csv")
 data_model = pd.read_csv("data_cleaned/data_model.csv")
 
-# with open("model/xgboots_model.pkl", "rb") as f:
-# model = pickle.load(f)
-# with open("model/tfidf.pkl", "rb") as g:
-# tfidf = pickle.load(g)
-
-
+with open("model/xgboots_model.pkl", "rb") as f:
+    model = pickle.load(f)
+with open("model/tfidf.pkl", "rb") as g:
+    tfidf = pickle.load(g)
 # Create image
 img = Image.open("image/Whats-Sentiment-Analysis.png")
 new_width = 800
@@ -950,18 +948,14 @@ else:
         options=("Input", "Upload"),
     )
 
-    def enter_your_comment(text):
+    def enter_your_comment(text, model, tfidf):
+        model = model
+        tfidf = tfidf
         # Create df with comment
         df = pd.DataFrame({"Comment": text}, index=[0])
 
         # transform data using nlp function
         df["Comment Tokenize"] = df["Comment"].apply(xt.stepByStep)
-        with open(
-            "/mount/src/sentimentanalysis_deloy_streamlit/model/xgboots_model.pkl", "rb"
-        ) as f:
-            model = pickle.load(f)
-        with open("model/tfidf.pkl", "rb") as g:
-            tfidf = pickle.load(g)
         # tfidf
         X_test = tfidf.transform(df["Comment Tokenize"])
 
@@ -977,7 +971,7 @@ else:
         if st.button("Predict"):
             # Result
             st.write("##### II. Result")
-            result = enter_your_comment(comment)
+            result = enter_your_comment(comment, model, tfidf)
             st.write(result)
             extract_csv_file = result.to_csv(index=False, encoding="utf-8")
             st.download_button(
@@ -1003,11 +997,9 @@ else:
             "###### *Select your file data:*", type=["csv"]
         )
 
-        def sentiment(df):
-            with open("model/xgboots_model.pkl", "rb") as f:
-                model = pickle.load(f)
-            with open("model/tfidf.pkl", "rb") as g:
-                tfidf = pickle.load(g)
+        def sentiment(df, model, tfidf):
+            model = model
+            tfidf = tfidf
             df["Comment Tokenize"] = df["Comment"].apply(xt.stepByStep)
             X_test = tfidf.transform(df["Comment Tokenize"])
             y_pred = model.predict(X_test)
@@ -1017,7 +1009,7 @@ else:
             return df
 
         if uploaded_file is not None:
-            st.write("##### Your data:")
+            st.write("###### *Your data:*")
             # Read file data
             data_new = pd.read_csv(uploaded_file, sep=",")
             st.write(data_new)
