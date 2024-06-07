@@ -193,7 +193,7 @@ data_model = pd.read_csv("data_cleaned/data_model.csv")
 # with open("model/tfidf.pkl", "rb") as g:
 # tfidf = pickle.load(g)
 
-model = joblib.load("model/xgboots_model.pkl")
+model = joblib.load("model/xgboots_model.pkl", "rb")
 tfidf = pickle.load(open("model/tfidf.pkl", "rb"))
 
 
