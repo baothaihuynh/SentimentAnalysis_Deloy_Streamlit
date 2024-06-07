@@ -6,6 +6,7 @@ import seaborn as sb
 import streamlit as st
 from PIL import Image
 import pickle
+import joblib
 from wordcloud import WordCloud
 import plotly.express as px
 from plotly.graph_objects import Figure
@@ -187,10 +188,14 @@ price_word_posi = [
 data_analysis = pd.read_csv("data_cleaned/data_analysis.csv")
 data_model = pd.read_csv("data_cleaned/data_model.csv")
 
-with open("model/xgboots_model.pkl", "rb") as f:
-    model = pickle.load(f)
-with open("model/tfidf.pkl", "rb") as g:
-    tfidf = pickle.load(g)
+# with open("model/xgboots_model.pkl", "rb") as f:
+# model = pickle.load(f)
+# with open("model/tfidf.pkl", "rb") as g:
+# tfidf = pickle.load(g)
+
+model = joblib.load("model/xgboots_model.pkl")
+tfidf = pickle.load(open("model/tfidf.pkl", "rb"))
+
 
 # Create image
 img = Image.open("image/Whats-Sentiment-Analysis.png")
