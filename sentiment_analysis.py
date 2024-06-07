@@ -944,10 +944,10 @@ else:
         options=("Input", "Upload"),
     )
 
-    with open("model/xgboots_model.pkl", "rb") as f:
-        model = pickle.load(f)
-    with open("model/tfidf.pkl", "rb") as g:
-        tfidf = pickle.load(g)
+with open("model/xgboots_model.pkl", "rb") as f:
+    model = pickle.load(f)
+with open("model/tfidf.pkl", "rb") as g:
+    tfidf = pickle.load(g)
 
     # import os
 
