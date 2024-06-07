@@ -187,6 +187,10 @@ price_word_posi = [
 data_analysis = pd.read_csv("data_cleaned/data_analysis.csv")
 data_model = pd.read_csv("data_cleaned/data_model.csv")
 
+with open("model/xgboots_model.pkl", "rb") as f:
+    model = pickle.load(f)
+with open("model/tfidf.pkl", "rb") as g:
+    tfidf = pickle.load(g)
 
 # Create image
 img = Image.open("image/Whats-Sentiment-Analysis.png")
@@ -943,22 +947,6 @@ else:
         " ###### *Do you want to Input data or Upload data?*",
         options=("Input", "Upload"),
     )
-
-with open("model/xgboots_model.pkl", "rb") as f:
-    model = pickle.load(f)
-with open("model/tfidf.pkl", "rb") as g:
-    tfidf = pickle.load(g)
-
-    # import os
-
-    # try:
-    # with open("model/tfidf.pkl", "rb") as fp:
-    # if os.stat("model/tfidf.pkl").st_size == 0:
-    # Handle empty file case (e.g., print a message, exit gracefully)
-    # raise EOFError("Pickle file is empty")
-    # tfidf = pickle.load(fp)
-    # except EOFError as e:
-    # print(f"Error: {e}")
 
     def enter_your_comment(text):
         # Create df with comment
