@@ -956,7 +956,9 @@ else:
 
         # transform data using nlp function
         df["Comment Tokenize"] = df["Comment"].apply(xt.stepByStep)
-        with open("model/xgboots_model.pkl", "rb") as f:
+        with open(
+            "/mount/src/sentimentanalysis_deloy_streamlit/sentiment_analysis.pkl", "rb"
+        ) as f:
             model = pickle.load(f)
         with open("model/tfidf.pkl", "rb") as g:
             tfidf = pickle.load(g)
