@@ -1015,7 +1015,7 @@ else:
             # Read file data
             data_new = pd.read_csv(uploaded_file, sep=",")
             st.write(data_new)
-            df_predict = sentiment(data_new)
+            df_predict = sentiment(data_new, model, tfidf)
             df_predict = df_predict.reset_index(drop=True)
             submitted = st.button("Predict")
 
