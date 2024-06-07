@@ -193,9 +193,6 @@ data_model = pd.read_csv("data_cleaned/data_model.csv")
 # with open("model/tfidf.pkl", "rb") as g:
 # tfidf = pickle.load(g)
 
-model = joblib.load("model/xgboots_model.pkl", "rb")
-tfidf = pickle.load(open("model/tfidf.pkl", "rb"))
-
 
 # Create image
 img = Image.open("image/Whats-Sentiment-Analysis.png")
@@ -959,7 +956,10 @@ else:
 
         # transform data using nlp function
         df["Comment Tokenize"] = df["Comment"].apply(xt.stepByStep)
-
+        with open("model/xgboots_model.pkl", "rb") as f:
+            model = pickle.load(f)
+        with open("model/tfidf.pkl", "rb") as g:
+            tfidf = pickle.load(g)
         # tfidf
         X_test = tfidf.transform(df["Comment Tokenize"])
 
@@ -1002,6 +1002,10 @@ else:
         )
 
         def sentiment(df):
+            with open("model/xgboots_model.pkl", "rb") as f:
+                model = pickle.load(f)
+            with open("model/tfidf.pkl", "rb") as g:
+                tfidf = pickle.load(g)
             df["Comment Tokenize"] = df["Comment"].apply(xt.stepByStep)
             X_test = tfidf.transform(df["Comment Tokenize"])
             y_pred = model.predict(X_test)
